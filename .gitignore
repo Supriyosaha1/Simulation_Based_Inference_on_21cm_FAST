@@ -1,0 +1,13 @@
+# Ignore dataset folder (large data files)
+dataset/
+
+# Jupyter and Python artifacts
+.ipynb_checkpoints/
+__pycache__/
+
+# Editor & OS
+.DS_Store
+.vscode/
+
+SBI_step_by_step/UGMRT_500h/Data/Full_data_set
+SBI_step_by_step/UGMRT_500h/Data/Train_test_data

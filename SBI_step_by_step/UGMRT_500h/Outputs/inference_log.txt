@@ -1,0 +1,104 @@
+============================================================
+STEP 5: POSTERIOR INFERENCE ON 5 TEST POINTS
+============================================================
+
+1. Loading trained posterior...
+   Loaded from: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/posterior_snpe.pt
+
+2. Loading test set (5 EXACT points from paper)...
+   Test set size: 5
+   theta_test shape: (5, 2)
+   x_test shape: torch.Size([5, 2762])
+
+   Test points:
+     1. xHI=0.1087, fX=-3.0000
+     2. xHI=0.1099, fX=-1.0000
+     3. xHI=0.5210, fX=-2.0000
+     4. xHI=0.8018, fX=-1.0000
+     5. xHI=0.7995, fX=-3.0000
+
+3. Sampling from posterior on 5 test points...
+   Drawing 2000 samples per test point...
+   Point 1: Posterior mean xHI=0.2731, fX=-2.2422
+   Point 2: Posterior mean xHI=0.4175, fX=-0.2772
+   Point 3: Posterior mean xHI=0.4444, fX=-2.4515
+   Point 4: Posterior mean xHI=0.5207, fX=-0.6912
+   Point 5: Posterior mean xHI=0.8085, fX=-2.8881
+
+4. Computing inference statistics...
+
+============================================================
+INFERENCE RESULTS FOR 5 TEST POINTS
+============================================================
+
+============================================================
+Test Point 1
+============================================================
+True parameters:      xHI=0.1087, fX=-3.0000
+Posterior mean:       xHI=0.2731, fX=-2.2422
+Posterior std:        xHI=0.1834, fX=0.7145
+95% Credible Interval xHI: [0.0682, 0.6862]
+95% Credible Interval fX:  [-3.8185, -1.1049]
+Z-scores:             xHI=-0.8967, fX=-1.0606
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 2
+============================================================
+True parameters:      xHI=0.1099, fX=-1.0000
+Posterior mean:       xHI=0.4175, fX=-0.2772
+Posterior std:        xHI=0.2947, fX=0.8792
+95% Credible Interval xHI: [-0.0273, 0.9282]
+95% Credible Interval fX:  [-2.6815, 0.8560]
+Z-scores:             xHI=-1.0436, fX=-0.8221
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 3
+============================================================
+True parameters:      xHI=0.5210, fX=-2.0000
+Posterior mean:       xHI=0.4444, fX=-2.4515
+Posterior std:        xHI=0.0961, fX=0.4923
+95% Credible Interval xHI: [0.3167, 0.6941]
+95% Credible Interval fX:  [-3.4352, -1.5513]
+Z-scores:             xHI=0.7982, fX=0.9171
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 4
+============================================================
+True parameters:      xHI=0.8018, fX=-1.0000
+Posterior mean:       xHI=0.5207, fX=-0.6912
+Posterior std:        xHI=0.3293, fX=0.8662
+95% Credible Interval xHI: [0.0063, 1.1006]
+95% Credible Interval fX:  [-3.0616, 0.3016]
+Z-scores:             xHI=0.8532, fX=-0.3565
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 5
+============================================================
+True parameters:      xHI=0.7995, fX=-3.0000
+Posterior mean:       xHI=0.8085, fX=-2.8881
+Posterior std:        xHI=0.0873, fX=0.7359
+95% Credible Interval xHI: [0.7098, 1.0449]
+95% Credible Interval fX:  [-4.3568, -1.5789]
+Z-scores:             xHI=-0.1022, fX=-0.1520
+True value in 95% CI: xHI=True, fX=True
+
+5. Creating inference visualization...
+   Plot saved to: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/inference_results.png
+
+6. Saving inference results...
+   Results saved to: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/inference_results.pkl
+
+============================================================
+✅ STEP 5 COMPLETE!
+============================================================
+
+Inference Summary:
+  - Sampled on 5 test points
+  - Drew 2000 samples per point
+  - Posterior means computed
+  - 95% credible intervals calculated
+  - Visualization created

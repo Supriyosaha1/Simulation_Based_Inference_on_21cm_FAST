@@ -1,0 +1,35 @@
+==========================================
+Step 3: Define Prior
+==========================================
+Host: compute-1-6
+OMP_NUM_THREADS = 32
+CWD: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h
+Python: /user1/supriyo/miniconda3/envs/ml_project/bin/python
+Conda env: ml_project           * /user1/supriyo/miniconda3/envs/ml_project
+==========================================
+============================================================
+STEP 3: DEFINE PRIOR
+============================================================
+
+Data ranges observed:
+  xHI: [0.0003, 0.9999]
+  fX:  [-4.0000, 1.0000]
+
+Prior definition:
+  xHI: [0.0, 1.0]
+  fX:  [-4.0, 1.0]
+
+Prior samples (10,000 samples):
+  xHI: [0.0002, 1.0000]
+  fX:  [-3.9991, 1.0000]
+
+✅ Saved visualization: prior_coverage.png
+
+✅ Saved prior: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/prior.pkl
+
+============================================================
+✅ PRIOR DEFINED!
+============================================================
+
+Next step: Step 4 - Train SNPE model
+  We'll train the neural network to learn the posterior

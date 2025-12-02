@@ -1,0 +1,79 @@
+======================================================================
+STEP 5d: UNIFIED PUBLICATION-QUALITY VISUALIZATION
+======================================================================
+
+1. Loading inference results...
+   Loaded results for 5 test points
+
+2. Creating unified parameter space plot...
+   Adding true parameter markers (stars)...
+   Adding posterior mean markers (circles)...
+
+3. Creating individual posterior subplots...
+   Main unified plot saved: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/posterior_unified_publication.png
+
+4. Creating paper-ready unified plot...
+   Paper-ready clean plot saved: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/posterior_unified_clean.png
+
+======================================================================
+✅ PUBLICATION-QUALITY UNIFIED VISUALIZATIONS CREATED!
+======================================================================
+
+Figures generated:
+
+  1. /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/posterior_unified_publication.png
+     - Large unified plot (left) + 4 individual subplots (right)
+     - All 5 test points in one parameter space
+     - Smooth contours for 1σ and 2σ credible intervals
+     - Publication-ready quality (300 DPI)
+
+  2. /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/posterior_unified_clean.png
+     - Paper-ready unified plot
+     - Only one large, clean visualization
+     - Suitable for journal submission
+     - High resolution (300 DPI)
+
+======================================================================
+INFERENCE SUMMARY
+======================================================================
+
+Test Point 1:
+  True parameters: xHI=0.1087, fX=-3.0000
+  Posterior mean:  xHI=0.2731, fX=-2.2422
+  Posterior std:   xHI=0.1834, fX=0.7145
+  Inference error: Δ xHI=0.1645, Δ fX=0.7578
+  95% CI coverage: xHI=✓, fX=✓
+
+Test Point 2:
+  True parameters: xHI=0.1099, fX=-1.0000
+  Posterior mean:  xHI=0.4175, fX=-0.2772
+  Posterior std:   xHI=0.2947, fX=0.8792
+  Inference error: Δ xHI=0.3075, Δ fX=0.7228
+  95% CI coverage: xHI=✓, fX=✓
+
+Test Point 3:
+  True parameters: xHI=0.5210, fX=-2.0000
+  Posterior mean:  xHI=0.4444, fX=-2.4515
+  Posterior std:   xHI=0.0961, fX=0.4923
+  Inference error: Δ xHI=0.0767, Δ fX=0.4515
+  95% CI coverage: xHI=✓, fX=✓
+
+Test Point 4:
+  True parameters: xHI=0.8018, fX=-1.0000
+  Posterior mean:  xHI=0.5207, fX=-0.6912
+  Posterior std:   xHI=0.3293, fX=0.8662
+  Inference error: Δ xHI=0.2810, Δ fX=0.3088
+  95% CI coverage: xHI=✓, fX=✓
+
+Test Point 5:
+  True parameters: xHI=0.7995, fX=-3.0000
+  Posterior mean:  xHI=0.8085, fX=-2.8881
+  Posterior std:   xHI=0.0873, fX=0.7359
+  Inference error: Δ xHI=0.0089, Δ fX=0.1119
+  95% CI coverage: xHI=✓, fX=✓
+
+======================================================================
+Average error: xHI=0.1677 ± 0.1148
+Average error: fX=0.4705 ± 0.2455
+Coverage: 100% (all 5 points in 95% CI)
+======================================================================

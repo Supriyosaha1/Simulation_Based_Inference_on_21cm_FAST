@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -N sbi_step05_inference
+#PBS -l select=1:ncpus=32:mem=64gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -o step_05_inference.log
+
+cd $PBS_O_WORKDIR
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate ml_project
+
+export OMP_NUM_THREADS=32
+
+echo "=========================================="
+echo "Step 5: Posterior Inference"
+echo "=========================================="
+echo "Host: $(hostname)"
+echo "OMP_NUM_THREADS = $OMP_NUM_THREADS"
+echo "CWD: $(pwd)"
+echo "Python: $(which python)"
+echo "Conda env: $(conda info --envs | grep '*')"
+echo "=========================================="
+
+cd /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Code
+python step_05_inference.py
