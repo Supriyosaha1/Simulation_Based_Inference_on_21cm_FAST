@@ -1,6 +1,6 @@
 """
-Step 4b: Evaluate Trained Posterior (Check training quality)
-Check if the posterior was trained well using validation set
+Step 4b: Evaluate 2D-Data Trained Posterior
+Check if 2D spectral cubes training improves posterior quality significantly
 """
 
 import numpy as np
@@ -28,31 +28,60 @@ def log_print(msg):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 log_print("="*60)
-log_print("STEP 4b: EVALUATE TRAINED POSTERIOR")
+log_print("STEP 4b: EVALUATE 2D-DATA TRAINED POSTERIOR")
 log_print("="*60)
 
+# Load feature parameters
+log_print("\n1. Loading feature parameters...")
+feature_path = os.path.join(OUTPUT_DIR, "feature_params_2d.pkl")
+if os.path.exists(feature_path):
+    with open(feature_path, "rb") as f:
+        feature_params = pickle.load(f)
+    x_mean = torch.from_numpy(feature_params["x_mean"]).float().to(device)
+    x_std = torch.from_numpy(feature_params["x_std"]).float().to(device)
+    n_los = feature_params["n_los"]
+    n_freq = feature_params["n_freq"]
+    log_print(f"   Loaded feature params: n_los={n_los}, n_freq={n_freq}")
+else:
+    log_print("   Feature params not found, computing from data...")
+
 # Load validation data
-log_print("\n1. Loading validation data...")
+log_print("\n2. Loading validation data...")
 split_path = os.path.join(DATA_DIR, "train_val_test_split.pkl")
 with open(split_path, "rb") as f:
     split_data = pickle.load(f)
 
 theta_val = split_data["theta_val"]  # (107, 2)
-x_val = torch.from_numpy(split_data["x_1d_val"]).float().to(device)  # (107, 2762)
+x_val_2d = torch.from_numpy(split_data["x_2d_val"]).float().to(device)  # (107, 1000, 2762)
 
 log_print(f"   Validation set size: {theta_val.shape[0]}")
 log_print(f"   theta_val shape: {theta_val.shape}")
-log_print(f"   x_val shape: {x_val.shape}")
+log_print(f"   x_val_2d shape: {x_val_2d.shape}")
+
+# Extract mean and std from 2D data
+log_print("\n3. Extracting mean and std from 2D cubes...")
+x_val_mean = x_val_2d.mean(dim=1)  # (107, 2762)
+x_val_std = x_val_2d.std(dim=1)    # (107, 2762)
+
+log_print(f"   x_val_mean shape: {x_val_mean.shape}")
+log_print(f"   x_val_std shape: {x_val_std.shape}")
+
+# Concatenate and normalize
+x_val = torch.cat([x_val_mean, x_val_std], dim=1)  # (107, 5524)
+x_val_norm = (x_val - x_mean) / (x_std + 1e-8)
+
+log_print(f"   x_val concatenated shape: {x_val.shape}")
+log_print(f"   x_val normalized shape: {x_val_norm.shape}")
 
 # Load trained posterior
-log_print("\n2. Loading trained posterior...")
-posterior_path = os.path.join(OUTPUT_DIR, "posterior_snpe.pt")
+log_print("\n4. Loading 2D-data trained posterior...")
+posterior_path = os.path.join(OUTPUT_DIR, "posterior_snpe_2d.pt")
 posterior = torch.load(posterior_path, map_location=device)
 log_print(f"   Loaded from: {posterior_path}")
 
 # Sample from posterior on validation set
-log_print("\n3. Sampling from posterior on validation set...")
-n_samples = 500  # Fewer samples for evaluation speed
+log_print("\n5. Sampling from posterior on validation set...")
+n_samples = 500
 log_print(f"   Drawing {n_samples} samples per observation...")
 
 posterior_means = []
@@ -62,19 +91,16 @@ for i in range(len(theta_val)):
     if (i+1) % 20 == 0:
         log_print(f"   Processed {i+1}/{len(theta_val)}")
     
-    # Sample from posterior
-    # posterior.sample() needs x as condition
-    x_condition = x_val[i:i+1]  # (1, 2762)
+    x_condition = x_val_norm[i:i+1]  # (1, 5524)
     
     try:
         samples = posterior.sample((n_samples,), x=x_condition)
     except TypeError:
-        # Alternative API
         samples = posterior.sample((n_samples,), condition=x_condition)
     
     if isinstance(samples, torch.Tensor):
         samples = samples.detach().cpu().numpy()
-    samples = samples.reshape(-1, 2)  # Ensure shape (n_samples, 2)
+    samples = samples.reshape(-1, 2)
     
     mean = samples.mean(axis=0)
     std = samples.std(axis=0)

@@ -32,7 +32,7 @@ log_print("="*60)
 
 # Load trained posterior
 log_print("\n1. Loading trained posterior...")
-posterior_path = os.path.join(OUTPUT_DIR, "posterior_snpe.pt")
+posterior_path = os.path.join(OUTPUT_DIR, "posterior_snpe_2d.pt")
 posterior = torch.load(posterior_path, map_location=device, weights_only=False)
 log_print(f"   Loaded from: {posterior_path}")
 
@@ -52,6 +52,22 @@ log_print(f"   x_test shape: {x_test.shape}")
 log_print(f"\n   Test points:")
 for i in range(len(theta_test)):
     log_print(f"     {i+1}. xHI={theta_test[i, 0]:.4f}, fX={theta_test[i, 1]:.4f}")
+
+# Load feature normalization parameters and extract 2D features
+log_print("\n   Loading feature parameters for 2D normalization...")
+feature_path = os.path.join(OUTPUT_DIR, "feature_params_2d.pkl")
+with open(feature_path, "rb") as f:
+    feature_params = pickle.load(f)
+x_mean = torch.from_numpy(feature_params["x_mean"]).float().to(device)
+x_std = torch.from_numpy(feature_params["x_std"]).float().to(device)
+
+# Load 2D test data and extract mean+std features
+x_test_2d = torch.from_numpy(split_data["x_2d_test"]).float().to(device)  # (5, 1000, 2762)
+x_test_mean = x_test_2d.mean(dim=1)  # (5, 2762)
+x_test_std = x_test_2d.std(dim=1)    # (5, 2762)
+x_test_features = torch.cat([x_test_mean, x_test_std], dim=1)  # (5, 5524)
+x_test = (x_test_features - x_mean) / (x_std + 1e-8)  # Normalize
+log_print(f"   Using 2D features (mean+std): shape {x_test.shape}")
 
 # Sample from posterior on test set
 log_print("\n3. Sampling from posterior on 5 test points...")

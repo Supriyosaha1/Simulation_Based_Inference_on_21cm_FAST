@@ -15,7 +15,7 @@ import os
 # ============================================================================
 # PATHS
 # ============================================================================
-RAW_DATA_DIR = "/user1/supriyo/ml_project/21cmFAST_los/F21_noisy"
+RAW_DATA_DIR = "/user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/dataset/F21_noisy"
 FILE_PATTERN = "F21_noisy*uGMRT_8kHz_t500h*.dat"  # Only F21_noisy files, not 1DPS
 
 # ============================================================================
