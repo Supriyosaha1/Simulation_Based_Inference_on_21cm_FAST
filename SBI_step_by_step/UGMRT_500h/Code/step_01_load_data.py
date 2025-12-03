@@ -11,11 +11,12 @@ File structure:
 import numpy as np
 import glob
 import os
+from config import ROOT_DIR, RAW_DATA_DIR
 
 # ============================================================================
-# PATHS
+# PATHS (derived from config)
 # ============================================================================
-RAW_DATA_DIR = "/user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/dataset/F21_noisy"
+DATA_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Data")
 FILE_PATTERN = "F21_noisy*uGMRT_8kHz_t500h*.dat"  # Only F21_noisy files, not 1DPS
 
 # ============================================================================

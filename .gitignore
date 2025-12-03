@@ -11,3 +11,12 @@ __pycache__/
 
 SBI_step_by_step/UGMRT_500h/Data/Full_data_set
 SBI_step_by_step/UGMRT_500h/Data/Train_test_data
+
+
+SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs
+SBI_step_by_step/UGMRT_500h/Outputs/Test_outputs
+SBI_step_by_step/UGMRT_500h/Outputs/Val_outputs
+
+
+
+SBI_step_by_step/UGMRT_500h/PBS_Jobs/Job_scripts

@@ -8,6 +8,14 @@ import pickle
 import matplotlib.pyplot as plt
 from sbi.utils import BoxUniform
 import torch
+import os
+from config import ROOT_DIR
+
+# Paths
+OUTPUTS_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Outputs")
+PRIOR_DIR = os.path.join(OUTPUTS_DIR, "Prior_distribution")
+PRIOR_FILE = os.path.join(PRIOR_DIR, "prior.pkl")
+os.makedirs(PRIOR_DIR, exist_ok=True)
 
 print("=" * 60)
 print("STEP 3: DEFINE PRIOR")
@@ -66,7 +74,7 @@ axes[1].legend()
 axes[1].grid(alpha=0.3)
 
 plt.tight_layout()
-plt.savefig('/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/prior_coverage.png', dpi=150, bbox_inches='tight')
+plt.savefig(os.path.join(PRIOR_DIR, 'prior_coverage.png'), dpi=150, bbox_inches='tight')
 
 print("\n✅ Saved visualization: prior_coverage.png")
 
@@ -79,11 +87,10 @@ prior_dict = {
     }
 }
 
-import pickle
-with open("/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/prior.pkl", "wb") as f:
+with open(PRIOR_FILE, "wb") as f:
     pickle.dump(prior_dict, f)
 
-print(f"\n✅ Saved prior: /user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/prior.pkl")
+print(f"\n✅ Saved prior: {PRIOR_FILE}")
 
 print("\n" + "=" * 60)
 print("✅ PRIOR DEFINED!")

@@ -1,0 +1,104 @@
+==========================================
+Step 4b: Evaluate 2D SNPE Posterior
+==========================================
+Host: compute-1-6
+ROOT_DIR: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step
+OMP_NUM_THREADS = 16
+CWD: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/PBS_Jobs/Job_scripts
+Python: /user1/supriyo/miniconda3/envs/ml_project/bin/python
+Conda env: ml_project           * /user1/supriyo/miniconda3/envs/ml_project
+==========================================
+
+Evaluation Pipeline:
+  1. Load 2D-trained SNPE posterior
+  2. Sample from posterior on validation set
+  3. Compute R² scores and metrics
+  4. Assess calibration (Z-scores)
+  5. Generate visualization
+
+Expected Improvements:
+  - R² xHI: >0.70 (was 0.31 with 1D mean)
+  - R² fX: >0.85 (was 0.69 with 1D mean)
+==========================================
+
+/user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Code/step_04b_evaluate.py:81: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  posterior = torch.load(posterior_path, map_location=device)
+============================================================
+STEP 4b: EVALUATE 2D-DATA TRAINED POSTERIOR
+============================================================
+
+1. Loading feature parameters...
+   Loaded feature params: n_los=1000, n_freq=2762
+
+2. Loading validation data...
+   Validation set size: 107
+   theta_val shape: (107, 2)
+   x_val_2d shape: torch.Size([107, 1000, 2762])
+
+3. Extracting mean and std from 2D cubes...
+   x_val_mean shape: torch.Size([107, 2762])
+   x_val_std shape: torch.Size([107, 2762])
+   x_val concatenated shape: torch.Size([107, 5524])
+   x_val normalized shape: torch.Size([107, 5524])
+
+4. Loading 2D-data trained posterior...
+   Loaded from: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/posterior_snpe_2d.pt
+
+5. Sampling from posterior on validation set...
+   Drawing 500 samples per observation...
+   Processed 20/107
+   Processed 40/107
+   Processed 60/107
+   Processed 80/107
+   Processed 100/107
+
+   Posterior means shape: (107, 2)
+   Posterior stds shape: (107, 2)
+
+4. Computing evaluation metrics...
+
+============================================================
+EVALUATION RESULTS
+============================================================
+
+xHI (Neutral Fraction) Metrics:
+  R² Score: 0.2634 (ideal: 1.0, bad: <0.5)
+  RMSE: 0.252603 (lower is better)
+  Z-score mean: 0.0621 (ideal: 0.0)
+  Z-score std:  0.9961 (ideal: 1.0)
+
+fX (log10 X-ray heating) Metrics:
+  R² Score: 0.6641 (ideal: 1.0, bad: <0.5)
+  RMSE: 0.868377 (lower is better)
+  Z-score mean: 0.1264 (ideal: 0.0)
+  Z-score std:  0.9131 (ideal: 1.0)
+
+============================================================
+TRAINING QUALITY ASSESSMENT
+============================================================
+
+❌ R² Scores: POOR (<0.3)
+
+✅ Z-score means: CENTERED (close to 0)
+
+✅ Z-score std: CALIBRATED (close to 1)
+
+============================================================
+✅ OVERALL: TRAINING IS ACCEPTABLE. Proceed cautiously
+============================================================
+
+5. Creating evaluation plots...
+   Plot saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Val_outputs/evaluation_metrics.png
+   Metrics saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Val_outputs/evaluation_metrics.pkl
+
+============================================================
+✅ EVALUATION COMPLETE!
+============================================================
+
+✅ Log saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Val_outputs/evaluation_log.txt
+
+==========================================
+Evaluation job completed!
+Check: evaluation_metrics.png
+       evaluation_log.txt
+==========================================

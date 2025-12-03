@@ -14,14 +14,18 @@ import sys
 # SBI imports
 from sbi.inference import SNPE
 from sbi.utils import BoxUniform
+from config import ROOT_DIR
+
+# Paths
+DATA_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Data","Train_test_data")
+OUTPUTS_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Outputs","Train_outputs")
 
 # Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Setup logging to file
-OUTPUT_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-log_file = os.path.join(OUTPUT_DIR, "training_log.txt")
+os.makedirs(OUTPUTS_DIR, exist_ok=True)
+log_file = os.path.join(OUTPUTS_DIR, "training_log.txt")
 log_handle = open(log_file, "w")
 
 def log_print(*args, **kwargs):
@@ -31,11 +35,6 @@ def log_print(*args, **kwargs):
     log_handle.flush()
 
 log_print(f"Using device: {device}")
-
-# Paths
-DATA_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/Train_test_data/"
-OUTPUT_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 log_print("\n" + "="*70)
 log_print("STEP 4: TRAIN SNPE WITH 2D SPECTRAL DATA (Full Cubes)")
@@ -148,7 +147,7 @@ log_print(f"\n✅ Training complete!")
 
 # Save the posterior
 log_print("\n9. Saving posterior...")
-posterior_path = os.path.join(OUTPUT_DIR, "posterior_snpe_2d.pt")
+posterior_path = os.path.join(OUTPUTS_DIR, "posterior_snpe_2d.pt")
 torch.save(posterior, posterior_path)
 log_print(f"   Posterior saved to: {posterior_path}")
 
@@ -161,7 +160,7 @@ feature_params = {
     "n_freq": n_freq,
     "feature_type": "mean_and_std_from_2d_cubes",
 }
-feature_path = os.path.join(OUTPUT_DIR, "feature_params_2d.pkl")
+feature_path = os.path.join(OUTPUTS_DIR, "feature_params_2d.pkl")
 with open(feature_path, "wb") as f:
     pickle.dump(feature_params, f)
 log_print(f"   Saved to: {feature_path}")
@@ -184,12 +183,12 @@ metadata = {
     "expected_improvement": "R² should be MUCH better (>0.7 for xHI, >0.85 for fX)",
 }
 
-metadata_path = os.path.join(OUTPUT_DIR, "metadata_train.pkl")
+metadata_path = os.path.join(OUTPUTS_DIR, "metadata_train.pkl")
 with open(metadata_path, "wb") as f:
     pickle.dump(metadata, f)
 log_print(f"   Metadata saved to: {metadata_path}")
 
-metadata_path = os.path.join(OUTPUT_DIR, "metadata_train.pkl")
+metadata_path = os.path.join(OUTPUTS_DIR, "metadata_train.pkl")
 with open(metadata_path, "wb") as f:
     pickle.dump(metadata, f)
 log_print(f"   Metadata saved to: {metadata_path}")

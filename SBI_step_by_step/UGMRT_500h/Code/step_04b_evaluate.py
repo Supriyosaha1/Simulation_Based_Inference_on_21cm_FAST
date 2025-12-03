@@ -9,14 +9,16 @@ import torch
 import os
 import matplotlib.pyplot as plt
 from sklearn.metrics import r2_score, mean_squared_error
+from config import ROOT_DIR
 
 # Setup paths
-DATA_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/Train_test_data/"
-OUTPUT_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Outputs/"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+DATA_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Data", "Train_test_data")
+TRAIN_OUTPUTS_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Outputs", "Train_outputs")
+VAL_OUTPUTS_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Outputs", "Val_outputs")
+os.makedirs(VAL_OUTPUTS_DIR, exist_ok=True)
 
 # Setup logging
-log_file = os.path.join(OUTPUT_DIR, "evaluation_log.txt")
+log_file = os.path.join(VAL_OUTPUTS_DIR, "evaluation_log.txt")
 log_fp = open(log_file, "w")
 
 def log_print(msg):
@@ -33,7 +35,7 @@ log_print("="*60)
 
 # Load feature parameters
 log_print("\n1. Loading feature parameters...")
-feature_path = os.path.join(OUTPUT_DIR, "feature_params_2d.pkl")
+feature_path = os.path.join(TRAIN_OUTPUTS_DIR, "feature_params_2d.pkl")
 if os.path.exists(feature_path):
     with open(feature_path, "rb") as f:
         feature_params = pickle.load(f)
@@ -75,7 +77,7 @@ log_print(f"   x_val normalized shape: {x_val_norm.shape}")
 
 # Load trained posterior
 log_print("\n4. Loading 2D-data trained posterior...")
-posterior_path = os.path.join(OUTPUT_DIR, "posterior_snpe_2d.pt")
+posterior_path = os.path.join(TRAIN_OUTPUTS_DIR, "posterior_snpe_2d.pt")
 posterior = torch.load(posterior_path, map_location=device)
 log_print(f"   Loaded from: {posterior_path}")
 
@@ -250,7 +252,7 @@ axes[1, 1].grid(alpha=0.3)
 axes[1, 1].legend()
 
 plt.tight_layout()
-eval_plot_path = os.path.join(OUTPUT_DIR, "evaluation_metrics.png")
+eval_plot_path = os.path.join(VAL_OUTPUTS_DIR, "evaluation_metrics.png")
 plt.savefig(eval_plot_path, dpi=150, bbox_inches='tight')
 log_print(f"   Plot saved to: {eval_plot_path}")
 plt.close()
@@ -268,7 +270,7 @@ metrics_dict = {
     "quality_score": quality_score,
 }
 
-metrics_path = os.path.join(OUTPUT_DIR, "evaluation_metrics.pkl")
+metrics_path = os.path.join(VAL_OUTPUTS_DIR, "evaluation_metrics.pkl")
 with open(metrics_path, "wb") as f:
     pickle.dump(metrics_dict, f)
 log_print(f"   Metrics saved to: {metrics_path}")

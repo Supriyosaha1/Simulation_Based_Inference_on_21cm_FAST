@@ -7,10 +7,11 @@ import numpy as np
 import pickle
 import os
 from glob import glob
+from config import RAW_DATA_DIR, ROOT_DIR
 
-# Paths
-DATA_ROOT = "/user1/supriyo/ml_project/21cmFAST_los/F21_noisy/"
-OUTPUT_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/"
+# Paths - define locally
+DATA_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Data")
+OUTPUT_DIR = os.path.join(DATA_DIR, "Full_data_set")
 FILE_PATTERN = "F21_noisy*uGMRT_8kHz_t500h*.dat"
 
 # Create output directory if it doesn't exist
@@ -39,7 +40,7 @@ def load_one_file(path):
     return float(xHI), float(fX), mean_spec, cube.astype(np.float32)
 
 # Find all files
-files = sorted(glob(os.path.join(DATA_ROOT, FILE_PATTERN)))
+files = sorted(glob(os.path.join(RAW_DATA_DIR, FILE_PATTERN)))
 n_files = len(files)
 print(f"Found {n_files} files")
 

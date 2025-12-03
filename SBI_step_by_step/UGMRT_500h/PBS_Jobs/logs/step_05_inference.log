@@ -1,0 +1,134 @@
+==========================================
+Step 5: Posterior Inference
+==========================================
+Host: compute-1-4
+ROOT_DIR: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step
+OMP_NUM_THREADS = 32
+CWD: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/PBS_Jobs/Job_scripts
+Python: /user1/supriyo/miniconda3/envs/ml_project/bin/python
+Conda env: ml_project           * /user1/supriyo/miniconda3/envs/ml_project
+==========================================
+============================================================
+STEP 5: POSTERIOR INFERENCE ON 5 TEST POINTS
+============================================================
+
+2. Loading trained posterior...
+   Loaded from: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/posterior_snpe_2d.pt
+
+2. Loading test set (5 EXACT points from paper)...
+   Test set size: 5
+   theta_test shape: (5, 2)
+   x_test shape: torch.Size([5, 2762])
+
+   Test points:
+     1. xHI=0.1087, fX=-3.0000
+     2. xHI=0.1099, fX=-1.0000
+     3. xHI=0.5210, fX=-2.0000
+     4. xHI=0.8018, fX=-1.0000
+     5. xHI=0.7995, fX=-3.0000
+
+   Loading feature parameters for 2D normalization...
+   Using 2D features (mean+std): shape torch.Size([5, 5524])
+
+3. Sampling from posterior on 5 test points...
+   Drawing 2000 samples per test point...
+   Point 1: Posterior mean xHI=0.4211, fX=-1.7997
+   Point 2: Posterior mean xHI=0.3331, fX=-0.7949
+   Point 3: Posterior mean xHI=0.4731, fX=-1.9754
+   Point 4: Posterior mean xHI=0.5170, fX=-1.4275
+   Point 5: Posterior mean xHI=0.7064, fX=-3.7172
+
+4. Computing inference statistics...
+
+============================================================
+INFERENCE RESULTS FOR 5 TEST POINTS
+============================================================
+
+============================================================
+Test Point 1
+============================================================
+True parameters:      xHI=0.1087, fX=-3.0000
+Posterior mean:       xHI=0.4211, fX=-1.7997
+Posterior std:        xHI=0.2468, fX=0.7537
+68% CI (1σ) xHI: [0.1665, 0.6734]
+68% CI (1σ) fX:  [-2.3577, -1.1967]
+95% CI (2σ) xHI: [-0.0061, 0.9245]
+95% CI (2σ) fX:  [-3.7816, -0.7189]
+Z-scores:             xHI=-1.2660, fX=-1.5925
+True value in 68% CI: xHI=False, fX=False
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 2
+============================================================
+True parameters:      xHI=0.1099, fX=-1.0000
+Posterior mean:       xHI=0.3331, fX=-0.7949
+Posterior std:        xHI=0.2616, fX=0.9923
+68% CI (1σ) xHI: [0.0964, 0.5971]
+68% CI (1σ) fX:  [-1.6770, 0.0546]
+95% CI (2σ) xHI: [-0.0802, 0.9203]
+95% CI (2σ) fX:  [-3.2560, 0.5967]
+Z-scores:             xHI=-0.8530, fX=-0.2067
+True value in 68% CI: xHI=True, fX=True
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 3
+============================================================
+True parameters:      xHI=0.5210, fX=-2.0000
+Posterior mean:       xHI=0.4731, fX=-1.9754
+Posterior std:        xHI=0.1681, fX=0.1617
+68% CI (1σ) xHI: [0.3099, 0.6353]
+68% CI (1σ) fX:  [-2.1199, -1.8303]
+95% CI (2σ) xHI: [0.1368, 0.8151]
+95% CI (2σ) fX:  [-2.3595, -1.6860]
+Z-scores:             xHI=0.2853, fX=-0.1519
+True value in 68% CI: xHI=True, fX=True
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 4
+============================================================
+True parameters:      xHI=0.8018, fX=-1.0000
+Posterior mean:       xHI=0.5170, fX=-1.4275
+Posterior std:        xHI=0.2773, fX=0.6837
+68% CI (1σ) xHI: [0.2425, 0.8030]
+68% CI (1σ) fX:  [-1.9651, -0.8935]
+95% CI (2σ) xHI: [-0.0256, 1.0717]
+95% CI (2σ) fX:  [-3.3159, -0.5216]
+Z-scores:             xHI=1.0268, fX=0.6253
+True value in 68% CI: xHI=True, fX=True
+True value in 95% CI: xHI=True, fX=True
+
+============================================================
+Test Point 5
+============================================================
+True parameters:      xHI=0.7995, fX=-3.0000
+Posterior mean:       xHI=0.7064, fX=-3.7172
+Posterior std:        xHI=0.1847, fX=0.9836
+68% CI (1σ) xHI: [0.5273, 0.8646]
+68% CI (1σ) fX:  [-4.5598, -2.8189]
+95% CI (2σ) xHI: [0.2595, 0.9476]
+95% CI (2σ) fX:  [-5.8665, -2.1431]
+Z-scores:             xHI=0.5045, fX=0.7291
+True value in 68% CI: xHI=True, fX=True
+True value in 95% CI: xHI=True, fX=True
+
+5. Creating inference visualization...
+   Plot saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Test_outputs/inference_results.png
+
+6. Saving inference results...
+   Results saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Test_outputs/inference_results.pkl
+
+============================================================
+✅ STEP 5 COMPLETE!
+============================================================
+
+Inference Summary:
+  - Sampled on 5 test points
+  - Drew 2000 samples per point
+  - Posterior means computed
+  - 95% credible intervals calculated
+  - Visualization created
+
+✅ Inference complete! Log saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Test_outputs/inference_log.txt

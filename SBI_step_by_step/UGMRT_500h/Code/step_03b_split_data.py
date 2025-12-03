@@ -9,14 +9,16 @@ Training set: 80% of remaining
 import numpy as np
 import pickle
 import os
+from config import ROOT_DIR
 
 # Paths
-DATA_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/Full_data_set"
-OUTPUT_DIR = "/user1/supriyo/ml_project/SBI_step_by_step/UGMRT_500h/Data/Train_test_data/"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+DATA_DIR = os.path.join(ROOT_DIR, "UGMRT_500h", "Data")
+INPUT_DATA_DIR = os.path.join(DATA_DIR, "Full_data_set")
+OUTPUT_DATA_DIR = os.path.join(DATA_DIR, "Train_test_data")
+os.makedirs(OUTPUT_DATA_DIR, exist_ok=True)
 
 # Open log file
-log_file = os.path.join(OUTPUT_DIR, "split_data_log.txt")
+log_file = os.path.join(OUTPUT_DATA_DIR, "split_data_log.txt")
 log_fp = open(log_file, "w")
 
 def log_print(msg):
@@ -31,7 +33,7 @@ log_print("=" * 60)
 
 # Load dataset
 log_print("\n1. Loading dataset...")
-with open(os.path.join(DATA_DIR, "dataset.pkl"), "rb") as f:
+with open(os.path.join(INPUT_DATA_DIR, "dataset.pkl"), "rb") as f:
     data = pickle.load(f)
 
 theta = data["theta"]  # (539, 2)
@@ -141,7 +143,7 @@ split_data = {
     "test_indices": test_indices,
 }
 
-split_path = os.path.join(OUTPUT_DIR, "train_val_test_split.pkl")
+split_path = os.path.join(OUTPUT_DATA_DIR, "train_val_test_split.pkl")
 with open(split_path, "wb") as f:
     pickle.dump(split_data, f)
 
@@ -150,17 +152,17 @@ log_print(f"   File size: {os.path.getsize(split_path) / 1e9:.2f} GB")
 
 # Also save as individual numpy files
 log_print("\n   Saving individual .npy files...")
-np.save(os.path.join(OUTPUT_DIR, "theta_train.npy"), theta_train)
-np.save(os.path.join(OUTPUT_DIR, "x_1d_train.npy"), x_1d_train)
-np.save(os.path.join(OUTPUT_DIR, "x_2d_train.npy"), x_2d_train)
+np.save(os.path.join(OUTPUT_DATA_DIR, "theta_train.npy"), theta_train)
+np.save(os.path.join(OUTPUT_DATA_DIR, "x_1d_train.npy"), x_1d_train)
+np.save(os.path.join(OUTPUT_DATA_DIR, "x_2d_train.npy"), x_2d_train)
 
-np.save(os.path.join(OUTPUT_DIR, "theta_val.npy"), theta_val)
-np.save(os.path.join(OUTPUT_DIR, "x_1d_val.npy"), x_1d_val)
-np.save(os.path.join(OUTPUT_DIR, "x_2d_val.npy"), x_2d_val)
+np.save(os.path.join(OUTPUT_DATA_DIR, "theta_val.npy"), theta_val)
+np.save(os.path.join(OUTPUT_DATA_DIR, "x_1d_val.npy"), x_1d_val)
+np.save(os.path.join(OUTPUT_DATA_DIR, "x_2d_val.npy"), x_2d_val)
 
-np.save(os.path.join(OUTPUT_DIR, "theta_test.npy"), theta_test)
-np.save(os.path.join(OUTPUT_DIR, "x_1d_test.npy"), x_1d_test)
-np.save(os.path.join(OUTPUT_DIR, "x_2d_test.npy"), x_2d_test)
+np.save(os.path.join(OUTPUT_DATA_DIR, "theta_test.npy"), theta_test)
+np.save(os.path.join(OUTPUT_DATA_DIR, "x_1d_test.npy"), x_1d_test)
+np.save(os.path.join(OUTPUT_DATA_DIR, "x_2d_test.npy"), x_2d_test)
 
 log_print(f"   Individual files saved!")
 
