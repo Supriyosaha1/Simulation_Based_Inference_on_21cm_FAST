@@ -1,0 +1,90 @@
+Using device: cpu
+
+======================================================================
+STEP 4: TRAIN SNPE WITH 2D SPECTRAL DATA (Full Cubes)
+======================================================================
+
+1. Loading split dataset...
+   theta_train shape: torch.Size([427, 2])
+   x_train_1d shape: torch.Size([427, 2762]) (mean spectrum)
+   x_train_2d shape: torch.Size([427, 1000, 2762]) (full cube)
+   theta_val shape: torch.Size([107, 2])
+   x_val_2d shape: torch.Size([107, 1000, 2762])
+
+2. Flattening 2D spectral cubes...
+   Flattened training: torch.Size([427, 2762000])
+   Flattened validation: torch.Size([107, 2762000])
+   Total features per sample: 2762000
+
+3. Applying smart dimensionality reduction...
+   Mean + Std features: torch.Size([427, 5524])
+   - Mean spectrum: 2762 features
+   - Std spectrum: 2762 features
+   Total: 5524 features (rich representation!)
+
+4. Normalizing features...
+   ✓ Normalized training data
+   ✓ Normalized validation data
+
+   Dataset summary:
+   - Training samples: 427
+   - Validation samples: 107
+   - Input features: 5524 (Mean+Std of 2D cubes)
+   - Parameter dimension: 2 (xHI, fX)
+
+5. Defining prior...
+   Prior: xHI ∈ [0, 1], fX ∈ [-4, 1]
+
+6. Initializing SNPE...
+
+7. Training with OPTIMIZED hyperparameters:
+   batch_size: 16
+   learning_rate: 0.0005
+   num_epochs: 1000
+   Input data: 2D cubes (mean + std)
+   Feature dim: 5524 (2x richer than 1D mean)
+   Expected: SIGNIFICANTLY BETTER R²
+
+8. Training neural posterior with 2D spectral data...
+   This will take 2-4 hours on CPU...
+   Rich 2D data should yield MUCH BETTER posteriors...
+
+✅ Training complete!
+
+9. Saving posterior...
+   Posterior saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/posterior_snpe_2d.pt
+
+10. Saving normalization parameters...
+   Saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/feature_params_2d.pkl
+   Metadata saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/metadata_train.pkl
+   Metadata saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/metadata_train.pkl
+
+======================================================================
+✅ STEP 4 COMPLETE - 2D DATA TRAINING!
+======================================================================
+
+Training Summary:
+  - Trained on: 427 samples
+  - Validated on: 107 samples
+  - Model saved: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/posterior_snpe_2d.pt
+  - Input dimension: 5524 features (Mean + Std of 2D cubes)
+  - batch_size: 16, lr: 0.0005, epochs: 1000
+
+Key Improvements:
+  ✓ 2D spectral cubes (1000 x 2762) instead of 1D mean
+  ✓ Mean + Std features capture distribution information
+  ✓ 5524 features (2x more than 1D mean)
+  ✓ Much richer information for learning
+  ✓ Very many epochs (1000) for convergence
+
+Why 2D Data is Better:
+  - Contains line-of-sight variance information
+  - Captures texture/structure in 21cm signal
+  - Mean+Std gives distribution shape, not just mean value
+  - Helps network distinguish parameter differences better
+
+Target Metrics:
+  - xHI R²: >0.70 (was 0.31)
+  - fX R²: >0.85 (was 0.69)
+
+Next: Run Step 4b evaluation to check improvements

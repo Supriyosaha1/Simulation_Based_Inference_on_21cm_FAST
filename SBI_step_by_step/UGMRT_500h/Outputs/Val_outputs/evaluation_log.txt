@@ -1,0 +1,71 @@
+============================================================
+STEP 4b: EVALUATE 2D-DATA TRAINED POSTERIOR
+============================================================
+
+1. Loading feature parameters...
+   Loaded feature params: n_los=1000, n_freq=2762
+
+2. Loading validation data...
+   Validation set size: 107
+   theta_val shape: (107, 2)
+   x_val_2d shape: torch.Size([107, 1000, 2762])
+
+3. Extracting mean and std from 2D cubes...
+   x_val_mean shape: torch.Size([107, 2762])
+   x_val_std shape: torch.Size([107, 2762])
+   x_val concatenated shape: torch.Size([107, 5524])
+   x_val normalized shape: torch.Size([107, 5524])
+
+4. Loading 2D-data trained posterior...
+   Loaded from: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Train_outputs/posterior_snpe_2d.pt
+
+5. Sampling from posterior on validation set...
+   Drawing 500 samples per observation...
+   Processed 20/107
+   Processed 40/107
+   Processed 60/107
+   Processed 80/107
+   Processed 100/107
+
+   Posterior means shape: (107, 2)
+   Posterior stds shape: (107, 2)
+
+4. Computing evaluation metrics...
+
+============================================================
+EVALUATION RESULTS
+============================================================
+
+xHI (Neutral Fraction) Metrics:
+  R² Score: 0.2634 (ideal: 1.0, bad: <0.5)
+  RMSE: 0.252603 (lower is better)
+  Z-score mean: 0.0621 (ideal: 0.0)
+  Z-score std:  0.9961 (ideal: 1.0)
+
+fX (log10 X-ray heating) Metrics:
+  R² Score: 0.6641 (ideal: 1.0, bad: <0.5)
+  RMSE: 0.868377 (lower is better)
+  Z-score mean: 0.1264 (ideal: 0.0)
+  Z-score std:  0.9131 (ideal: 1.0)
+
+============================================================
+TRAINING QUALITY ASSESSMENT
+============================================================
+
+❌ R² Scores: POOR (<0.3)
+
+✅ Z-score means: CENTERED (close to 0)
+
+✅ Z-score std: CALIBRATED (close to 1)
+
+============================================================
+✅ OVERALL: TRAINING IS ACCEPTABLE. Proceed cautiously
+============================================================
+
+5. Creating evaluation plots...
+   Plot saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Val_outputs/evaluation_metrics.png
+   Metrics saved to: /user1/supriyo/Simulation_Based_Inference_on_21cm_FAST/SBI_step_by_step/UGMRT_500h/Outputs/Val_outputs/evaluation_metrics.pkl
+
+============================================================
+✅ EVALUATION COMPLETE!
+============================================================

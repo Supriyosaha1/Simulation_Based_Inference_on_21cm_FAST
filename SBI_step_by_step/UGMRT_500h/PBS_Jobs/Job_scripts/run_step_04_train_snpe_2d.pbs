@@ -1,0 +1,57 @@
+#!/bin/bash
+#PBS -N sbi_snpe_2d
+#PBS -l select=1:ncpus=16:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+#PBS -o ../logs/step_04_train_snpe_2d.log
+
+cd $PBS_O_WORKDIR
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate ml_project
+
+# PBS_O_WORKDIR is the directory where qsub was called (Job_scripts/)
+# Go up two levels to UGMRT_500h, then into Code to find config.py
+CONFIG_DIR="${PBS_O_WORKDIR}/../../Code"
+
+# Import ROOT_DIR from config.py
+ROOT_DIR=$(python -c "import sys; sys.path.insert(0, '${CONFIG_DIR}'); from config import ROOT_DIR; print(ROOT_DIR)")
+
+export OMP_NUM_THREADS=16
+
+echo "=========================================="
+echo "Step 4: Train SNPE with 2D Spectral Data"
+echo "=========================================="
+echo "Host: $(hostname)"
+echo "ROOT_DIR: ${ROOT_DIR}"
+echo "OMP_NUM_THREADS = $OMP_NUM_THREADS"
+echo "CWD: $(pwd)"
+echo "Python: $(which python)"
+echo "Conda env: $(conda info --envs | grep '*')"
+echo "=========================================="
+echo ""
+echo "Pipeline:"
+echo "  1. Load 539 full 2D spectral cubes (1000 x 2762)"
+echo "  2. Extract Mean + Std features (5524 dims)"
+echo "  3. Train SNPE neural posterior"
+echo "  4. Expected: R² > 0.7 for xHI, > 0.85 for fX"
+echo ""
+echo "Why 2D Data:"
+echo "  ✓ Contains full spectral line-of-sight information"
+echo "  ✓ Preserves texture and structure"
+echo "  ✓ Mean+Std captures distribution shape"
+echo "  ✓ Much richer than 1D mean spectrum"
+echo "=========================================="
+echo ""
+
+cd ${ROOT_DIR}/UGMRT_500h/Code
+python step_04_train_snpe.py 
+
+echo ""
+echo "=========================================="
+echo "Training job completed!"
+echo "Outputs:"
+echo "  - posterior_snpe_2d.pt"
+echo "  - feature_params_2d.pkl"
+echo "  - metadata_train.pkl"
+echo "=========================================="
